@@ -1,17 +1,30 @@
 ---
 # tasks file for ansible-role-template
-- name: ensure local files directory exists
-  local_action: >
-      file path={{ role_path }}/files state=directory mode=0755
-- name: create local variables.ini from dict
-  local_action: >
-      template src={{ role_path }}/templates/variables.ini.j2 dest={{ role_path }}/files/variables.ini
-- name: move over precompleted variables.ini
-  copy: src=variables.ini dest={{ APP_BASE_DIR }}/variables.ini backup=yes
+- name: create callback_plugins directory in playbook
+  shell: "mkdir {{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}"
+  PLUGIN_DIR: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}"
 
-- name: run generate script for app
-  shell: "{{ VIRTUAL_ENV }}/bin/python {{ APP_BASE_DIR }}/configure"
-  register: output
+- name: clone plugin to subspace
+  git:
+    repo: "{{ PLUGIN_URI }}"
+    dest: "{{ SUBSPACE_DIR }}"
+    clone: yes
 
-- debug: var=output.stdout_lines
-when: CLANK_VERBOSE | default(False)
+- name: clone plugin git repo
+  git:
+    repo: "{{ PLUGIN_URI }}"
+    dest: "{{ PLUGIN_DIR }}"
+    clone: yes
+
+- name: compile plugin
+  shell: |
+    "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
+    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
+    "python -m py_compile {{ PLUGIN_DIR }}/config.py"
+    "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
+
+- name: create metrics database
+  mysql_db:
+    name: metrics
+    state: import
+    target: ./metrics_db.sql 
