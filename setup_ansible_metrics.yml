@@ -1,0 +1,6 @@
+- name: setup the ansible metrics plugin
+  hosts: atmosphere
+  roles:
+    - { role: atmo-ini-config,
+        PLAYBOOK_TO_PROFILE: instance_deploy
+        tags: ['profile'] }
