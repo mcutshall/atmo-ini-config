@@ -20,7 +20,7 @@
   shell: |
     "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
     "python -m py_compile {{ PLUGIN_DIR }}/config.py"
-    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
+    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"  
     "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database
