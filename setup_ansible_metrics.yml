@@ -2,5 +2,5 @@
   hosts: atmosphere
   roles:
     - { role: atmo-ini-config,
-        PLAYBOOK_TO_PROFILE: instance_deploy
+        PLAYBOOK_TO_PROFILE: "instance_deploy"
         tags: ['profile'] }
