@@ -7,17 +7,27 @@
     mode: 0755
   PLUGIN_DIR: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}/callback_plugins"
 
-- name: clone plugin to subspace
-  git:
-    repo: "{{ PLUGIN_URI }}"
-    dest: "{{ SUBSPACE_DIR }}"
-    clone: yes
+- name: copy plugin to subspace
+  copy:
+    src: {{ item }}
+    dest: {{ SUBSPACE_DIR }}
+    mode: 0644
+  with_items:
+    - ../profile_tasks.py
+    - ../config.py
+    - ../database.ini
+    - ../metrics_db.pgsql
 
-- name: clone plugin git repo
-  git:
-    repo: "{{ PLUGIN_URI }}"
-    dest: "{{ PLUGIN_DIR }}"
-    clone: yes
+- name: copy plugin to callback_plugins directory of playbook 
+  copy:
+    src: {{ item }}
+    dest: {{ PLUGIN_DIR }}
+    mode: 0644
+  with_items:
+    - ../profile_tasks.py
+    - ../config.py
+    - ../database.ini
+    - ../metrics_db.pgsql
 
 - name: compile plugin
   shell: |
