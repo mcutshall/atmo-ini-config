@@ -1,7 +1,10 @@
 ---
 # tasks file for ansible-role-template
 - name: create callback_plugins directory in playbook
-  shell: "mkdir {{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}"
+  file:
+    path: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}/callback_plugins"
+    state: directory
+    mode: 0755
   PLUGIN_DIR: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}/callback_plugins"
 
 - name: clone plugin to subspace
@@ -20,7 +23,7 @@
   shell: |
     "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
     "python -m py_compile {{ PLUGIN_DIR }}/config.py"
-    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"  
+    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
     "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database

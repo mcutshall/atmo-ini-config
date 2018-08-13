@@ -2,6 +2,6 @@
 # defaults file for ansible-role-template
 PLAYBOOK_TO_PROFILE: ""
 PLUGIN_DIR: ""
-SUBSPACE_DIR: "/opt/env/atmo_master/lib/python2.7/site-packages/subspace/plugins/callback/"
-PLAYBOOKS_PATH: "/opt/dev/atmosphere-ansible/ansible/playbooks/"
+SUBSPACE_DIR: "/opt/env/atmo_master/lib/python2.7/site-packages/subspace/plugins/callback"
+PLAYBOOKS_PATH: "/opt/dev/atmosphere-ansible/ansible/playbooks"
 PLUGIN_URI: "https://github.com/mcutshall/ansible_metrics.git"
