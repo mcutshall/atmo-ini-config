@@ -24,7 +24,7 @@
     "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database
-  postgressql_db:
+  postgresql_db:
     name: metrics
     state: restore
     target: ./metrics_db.pgsql
