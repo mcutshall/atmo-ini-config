@@ -5,39 +5,44 @@
     path: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}/callback_plugins"
     state: directory
     mode: 0755
-  PLUGIN_DIR: "{{ PLAYBOOKS_PATH }}/{{ PLAYBOOK_TO_PROFILE }}/callback_plugins"
 
 - name: copy plugin to subspace
   copy:
-    src: {{ item }}
-    dest: {{ SUBSPACE_DIR }}
+    src: "{{ item }}"
+    dest: "{{ SUBSPACE_DIR }}"
     mode: 0644
   with_items:
-    - ../profile_tasks.py
-    - ../config.py
-    - ../database.ini
-    - ../metrics_db.pgsql
+    - "../profile_tasks.py"
+    - "../config.py"
+    - "../database.ini"
+    - "../metrics_db.pgsql"
 
-- name: copy plugin to callback_plugins directory of playbook 
+- name: copy plugin to callback_plugins directory of playbook
   copy:
-    src: {{ item }}
-    dest: {{ PLUGIN_DIR }}
+    src: "{{ item }}"
+    dest: "{{ PLUGIN_DIR }}"
     mode: 0644
   with_items:
-    - ../profile_tasks.py
-    - ../config.py
-    - ../database.ini
-    - ../metrics_db.pgsql
+    - "../profile_tasks.py"
+    - "../config.py"
+    - "../database.ini"
+    - "../metrics_db.pgsql"
 
-- name: compile plugin
-  shell: |
-    "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
-    "python -m py_compile {{ PLUGIN_DIR }}/config.py"
-    "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
-    "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
+# - name: compile plugin
+#   shell: |
+#     "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
+#     "python -m py_compile {{ PLUGIN_DIR }}/config.py"
+#     "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
+#     "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database
   postgresql_db:
+    login_password: none
+    name: metrics
+
+- name: restore db from dump
+  postgresql_db:
+    login_password: none
     name: metrics
     state: restore
-    target: ./metrics_db.pgsql
+    target: "{{ DB_DUMP }}"
