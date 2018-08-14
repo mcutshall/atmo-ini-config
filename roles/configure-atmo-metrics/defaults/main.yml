@@ -6,3 +6,4 @@ SUBSPACE_DIR: "/opt/env/atmo_master/lib/python2.7/site-packages/subspace/plugins
 PLAYBOOKS_PATH: "/opt/dev/atmosphere-ansible/ansible/playbooks"
 PLUGIN_URI: "https://github.com/mcutshall/ansible_metrics.git"
 DB_DUMP: "/opt/dev/clank/roles/configure-atmo-metrics/metrics_db.pgsql"
+PSQL_PASSWORD: "none"

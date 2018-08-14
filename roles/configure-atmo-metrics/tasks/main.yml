@@ -28,16 +28,17 @@
     - "../database.ini"
     - "../metrics_db.pgsql"
 
-# - name: compile plugin
-#   shell: |
-#     "python -m py_compile {{ PLUGIN_DIR }}/profile_tasks.py"
-#     "python -m py_compile {{ PLUGIN_DIR }}/config.py"
-#     "python -m py_compile {{ SUBSPACE_DIR }}/profile_tasks.py"
-#     "python -m py_compile {{ SUBSPACE_DIR }}/config.py"
+- name: compile plugin
+  command: python -m py_compile "{{ item }}"
+  with_items:
+    - "{{ PLUGIN_DIR }}/profile_tasks.py"
+    - "{{ PLUGIN_DIR }}/config.py"
+    - "{{ SUBSPACE_DIR }}/profile_tasks.py"
+    - "{{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database
   postgresql_db:
-    login_password: none
+    login_password: "{{ PSQL_PASSWORD }}"
     name: metrics
 
 - name: restore db from dump
