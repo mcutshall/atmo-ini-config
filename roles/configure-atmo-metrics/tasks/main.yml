@@ -6,16 +6,16 @@
     state: directory
     mode: 0755
 
-- name: copy plugin to subspace
-  copy:
-    src: "{{ item }}"
-    dest: "{{ SUBSPACE_DIR }}"
-    mode: 0644
-  with_items:
-    - "../profile_tasks.py"
-    - "../config.py"
-    - "../database.ini"
-    - "../metrics_db.pgsql"
+# - name: copy plugin to subspace
+#   copy:
+#     src: "{{ item }}"
+#     dest: "{{ SUBSPACE_DIR }}"
+#     mode: 0644
+#   with_items:
+#     - "../profile_tasks.py"
+#     - "../config.py"
+#     - "../database.ini"
+#     - "../metrics_db.pgsql"
 
 - name: copy plugin to callback_plugins directory of playbook
   copy:
@@ -33,17 +33,23 @@
   with_items:
     - "{{ PLUGIN_DIR }}/profile_tasks.py"
     - "{{ PLUGIN_DIR }}/config.py"
-    - "{{ SUBSPACE_DIR }}/profile_tasks.py"
-    - "{{ SUBSPACE_DIR }}/config.py"
+    # - "{{ SUBSPACE_DIR }}/profile_tasks.py"
+    # - "{{ SUBSPACE_DIR }}/config.py"
 
 - name: create metrics database
   postgresql_db:
-    login_password: "{{ PSQL_PASSWORD }}"
+    # login_password: "{{ PSQL_PASSWORD }}"
+    login_user: postgres
     name: metrics
+  become: yes
+  become_user: postgres
 
 - name: restore db from dump
   postgresql_db:
-    login_password: none
+    # login_password: none
     name: metrics
     state: restore
     target: "{{ DB_DUMP }}"
+    login_user: postgres
+  become: yes
+  become_user: postgres
