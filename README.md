@@ -14,6 +14,8 @@ To run this plugin with clank the playbook and role must be added to clank/playb
 
 Once the deploy_stack finishes and the services are running, create a new instance and allow it to run until the 'deploying' phase, upon which database entries to the metrics db will be created. This is because we are profiling the 'instance_deploy' playbook, but will vary based on the specified playbook. 
 
+This was developed using atmo-local using this repo: https://gitlab.cyverse.org/cutshall/atmo-local. 
+
 
 TO DO: 
 
