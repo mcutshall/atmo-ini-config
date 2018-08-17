@@ -17,5 +17,7 @@ Once the deploy_stack finishes and the services are running, create a new instan
 TO DO: 
 
 -Replace the configure script for atmosphere-ansible
+
 -Move all atmosphere-ansible templating into clank
+
 -Modify variables_templates.json to include the new plugin
