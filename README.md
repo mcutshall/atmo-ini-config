@@ -1,6 +1,7 @@
 This plugin is currently designed to integrate with clank. Future plans are to replace the configure script for atmosphere-ansible and move all atmosphere-ansible templating into clank, along with this plugin. 
 
 How it works:
+
 This plugin creates database entries of completion times for ansible tasks. Each entry consistst of the task name and the time in seconds. The plugin creates a database named 'metrics' and consists of one table. 
 
 The playbook for this plugin can be configured to profile any other ansible playbook, and is currently configured for 'instance_deploy'. The PLAYBOOK_TO_PROFILE variable in this playbook will create a 'callback_plugins' directory in the specified playbook to house the python and ini files. All variables for this plugin reside in defaults/main.yml. 
