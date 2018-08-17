@@ -10,7 +10,7 @@ To run this plugin with clank the playbook and role must be added to clank/playb
 
   1. Add setup_ansible_metrics.yml playbook to clank/playbooks
   2. Add configure-atmo-metrics role to clank/roles
-  3. Add "include_playbook: ./setup_ansible_metrics.yml" to clank/playbooks/depoy_stack.yml
+  3. Add "include_playbook: ./setup_ansible_metrics.yml" to clank/playbooks/deploy_stack.yml
 
 Once the deploy_stack finishes and the services are running, create a new instance and allow it to run until the 'deploying' phase, upon which database entries to the metrics db will be created. This is because we are profiling the 'instance_deploy' playbook, but will vary based on the specified playbook. 
 
