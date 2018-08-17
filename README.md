@@ -15,6 +15,7 @@ To run this plugin with clank the playbook and role must be added to clank/playb
 Once the deploy_stack finishes and the services are running, create a new instance and allow it to run until the 'deploying' phase, upon which database entries to the metrics db will be created. This is because we are profiling the 'instance_deploy' playbook, but will vary based on the specified playbook. 
 
 TO DO: 
+
 -Replace the configure script for atmosphere-ansible
 -Move all atmosphere-ansible templating into clank
 -Modify variables_templates.json to include the new plugin
